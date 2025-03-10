@@ -1,0 +1,104 @@
+/* General Layout */
+.add-project-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #0d1117, #161b22);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Form Box */
+.add-project-form form {
+    width: 450px;
+    background: rgba(20, 24, 32, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 255, 170, 0.2);
+    text-align: left;
+    color: #f8f9fa;
+}
+
+/* Form Heading */
+.add-project-form h1 {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #00ffa2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Form Group */
+.add-project-form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* Labels */
+.add-project-form label {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #adb5bd;
+}
+
+/* Input Fields */
+.add-project-form input,
+.add-project-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    font-size: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Fix Description Box */
+.add-project-form textarea {
+    resize: none; /* Prevents resizing */
+    height: 100px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Date Picker */
+.add-project-form input[type="date"] {
+    cursor: pointer;
+}
+
+/* Error Messages */
+.add-project-form .error-message {
+    color: #ff6b6b;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+/* Submit Button */
+.add-project-form .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #00ffa2, #00d4ff);
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-project-form .submit-btn:hover {
+    background: linear-gradient(135deg, #00d4ff, #00ffa2);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+}
