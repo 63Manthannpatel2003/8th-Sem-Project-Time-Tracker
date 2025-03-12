@@ -12,11 +12,10 @@ const Login = () => {
   const submitHandler = async (data) => {
     try {
       console.log("Form Data Submitted:", data);
-      
       const res = await axios.post("/login", data);
       console.log("API Response:", res.data);
-
-      if (res.status === 200) {
+      console.log("status",res.status)
+      if (res.status === 201) {
         localStorage.setItem("id",res.data.role._id);
         localStorage.setItem("role",res.data.role.role);
         if (res.data.Message === "User FOUND successfully") {
