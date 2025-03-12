@@ -1,4 +1,3 @@
-
 from pydantic import BaseModel,validator,Field
 from typing import Optional,Dict,Any
 from bson import ObjectId
@@ -26,3 +25,5 @@ class UserLogin(BaseModel):
     password:str
 
     
+
+

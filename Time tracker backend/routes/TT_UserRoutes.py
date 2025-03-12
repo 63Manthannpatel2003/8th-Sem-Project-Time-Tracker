@@ -11,7 +11,7 @@ async def register_user(user:UserSignup):
 @router.post("/login/")
 async def login_user(user: UserLogin):
     return await getUser(user)
-    return {"username": user.username, "role": timetracker_user_collection[user.username]["role"]}
+    # return {"username": user.username, "role": timetracker_user_collection[user.username]["role"]}
 
 # @app.post("/login")
 # async def login(user: LoginRequest):

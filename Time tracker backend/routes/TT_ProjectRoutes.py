@@ -1,4 +1,3 @@
-
 from fastapi import APIRouter
 from models.TT_Project import Project,ProjectOut
 from controllers.TT_ProjectController import addProject,getAllProjects
@@ -11,4 +10,3 @@ async def add_project(project:Project):
 @router.get("/getAllProjects")
 async def get_all_projects():
     return await getAllProjects()
-

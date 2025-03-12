@@ -22,4 +22,3 @@ async def get_user(userId:str):
     return await getUser(userId)
 
 
-

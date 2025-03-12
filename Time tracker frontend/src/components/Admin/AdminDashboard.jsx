@@ -9,7 +9,7 @@ export const AdminDashboard = () => {
 
       <div className="dashboard-content">
         <div className="dashboard-header">
-          <h1>Welcome back, admin</h1>
+          <h1>Welcome back, Admin</h1>
         </div>
 
         <div className="cards-container">
@@ -31,9 +31,8 @@ export const AdminDashboard = () => {
           <h3>Weekly Hours</h3>
           <div className="weekly-chart">[Graph Placeholder]</div>
         </div>
-
-        
       </div>
     </div>
   );
 };
+
