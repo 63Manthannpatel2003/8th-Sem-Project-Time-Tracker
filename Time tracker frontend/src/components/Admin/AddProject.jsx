@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
 import "../../css/addProject.css";
 import "../../css/navbar.css";
 import Navbar from "../common/Navbar"; // Adjust the path if needed
-
 
 export const AddProject = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -19,18 +20,44 @@ export const AddProject = () => {
 
             const res = await axios.post("/addProject", data);
             setMessage(res.data.Message);
+
+            // Display success toast
+            toast.success("🎉 Project added successfully!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "light",
+                transition: Slide,
+            });
+
         } catch (error) {
             console.error("Error adding project", error);
             setMessage("Failed to add project");
+
+            // Display error toast
+            toast.error("❌ Failed to add project!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "light",
+                transition: Slide,
+            });
         }
     };
 
     return (
       <div>
           <Navbar /> {/* Add Navbar here */}
+          <ToastContainer /> {/* Toast notification container */}
           <div className="add-project-form">
               <h1>ADD PROJECT</h1>
-              {message && <p className="message">{message}</p>}
+              {/* {message && <p className="message">{message}</p>} */}
               <form onSubmit={handleSubmit(submitHandler)}>
                   <div className="form-group">
                       <label>Title</label>
@@ -70,7 +97,7 @@ export const AddProject = () => {
                   <div className="form-group">
                       <label>Start Date</label>
                       <input
-                          type='date'
+                          type='datetime-local'
                           {...register("startDate", { required: "Start date is required" })}
                       />
                       {errors.startDate && <p className="error-message">{errors.startDate.message}</p>}
@@ -79,7 +106,7 @@ export const AddProject = () => {
                   <div className="form-group">
                       <label>Completion Date</label>
                       <input
-                          type='date'
+                          type='datetime-local'
                           {...register("completionDate", { required: "Completion date is required" })}
                       />
                       {errors.completionDate && <p className="error-message">{errors.completionDate.message}</p>}
@@ -90,5 +117,4 @@ export const AddProject = () => {
           </div>
       </div>
   );
-  
 };

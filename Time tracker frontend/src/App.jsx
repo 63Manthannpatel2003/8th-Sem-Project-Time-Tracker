@@ -1,57 +1,43 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import axios from "axios";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { AdminDashboard } from "./components/Admin/AdminDashboard";
 import { DeveloperDashboard } from "./components/Developer/DeveloperDashboard";
 import { ProjectManagerDashboard } from "./components/ProjectManager/ProjectManagerDashboard";
 import { AddProject } from "./components/Admin/AddProject";
+import axios from "axios";
 import ProjectPage from "./components/Admin/Project";
 import Tasks from "./components/Admin/Tasks";
 import Reports from "./components/Admin/Reports";
-import TaskManager from "./components/Admin/TaskManager";
-import PrivateRoute from "./utils/PrivateRoute"; // For role-based access
-import "./css/styles.css";
 
-axios.defaults.baseURL = "http://localhost:8000";
+// import "./css/navbar.css"; // Import navbar.css
 
 function App() {
-  return (
-    <Router>
-      <div>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+  axios.defaults.baseURL = "http://localhost:8000";
+    return (
 
-          {/* Protected Routes - Admin */}
-          <Route element={<PrivateRoute role="admin" />}>
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/addProject" element={<AddProject />} />
-            <Route path="/admin/projects" element={<ProjectPage />} />
-            <Route path="/admin/tasks" element={<Tasks />} />
-            <Route path="/admin/reports" element={<Reports />} />
-            <Route path="/admin/taskManager" element={<TaskManager />} />
-          </Route>
+        <Router>
+            <div>
+            <Routes>
+              <Route path="/" element={<Navigate to="/login" />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard/>} />
+              <Route path="/developer" element={<Navigate to="/developer/dashboard" />} />
+              <Route path="/developer/dashboard" element={<DeveloperDashboard/>} />
+              <Route path="/ProjectManager" element={<Navigate to="/ProjectManager/dashboard" />} />
+              <Route path="/ProjectManager/dashboard" element={<ProjectManagerDashboard/>} />
+              <Route path="/admin/addProject" element={<AddProject></AddProject>} />
+              <Route path="/admin/projects" element={<ProjectPage/>} />
+              <Route path="/admin/tasks" element={<Tasks />} />
+              <Route path="/admin/reports" element={<Reports />} />
+            </Routes>
+            </div>
+        </Router>
 
-          {/* Protected Routes - Developer */}
-          <Route element={<PrivateRoute role="developer" />}>
-            <Route path="/developer/dashboard" element={<DeveloperDashboard />} />
-          </Route>
-
-          {/* Protected Routes - Project Manager */}
-          <Route element={<PrivateRoute role="manager" />}>
-            <Route path="/ProjectManager/dashboard" element={<ProjectManagerDashboard />} />
-          </Route>
-        </Routes>
-      </div>
-
-      {/* Task Manager should be placed only where needed */}
-      
-    </Router>
-  );
+    );
 }
 
 export default App;

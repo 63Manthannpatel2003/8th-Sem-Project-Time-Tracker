@@ -1,90 +1,58 @@
 import React from "react";
 import { Bar, Pie } from "react-chartjs-2";
-import "chart.js/auto";
-import "../../css/Reports.css";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, ArcElement, Tooltip, Legend } from "chart.js";
+import "../../css/Reports.css"; // Ensure CSS is updated
 import Navbar from "../common/Navbar";
 
+// Register chart components
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
+
 const Reports = () => {
-  const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
+  // Dummy Data
+  const barData = {
+    labels: ["ABC", "DEF", "GHI", "JKL"],
+    datasets: [{ label: "Hours Worked", data: [23, 29, 13, 16], backgroundColor: "rgb(54, 162, 235)" }],
   };
 
-  // Chart Data
-  const charts = [
-    {
-      title: "Time per Developer",
-      type: "bar",
-      data: {
-        labels: ["John Doe", "Jane Smith", "Bob Johnson", "Alice Brown"],
-        datasets: [
-          {
-            label: "Hours Worked",
-            data: [24, 30, 14, 18],
-            backgroundColor: "#34495E",
-            borderRadius: 5,
-          },
-        ],
-      },
-    },
-    {
-      title: "Task Status Distribution",
-      type: "pie",
-      data: {
-        labels: ["Todo", "In Progress", "Completed"],
-        datasets: [
-          {
-            data: [27, 20, 53],
-            backgroundColor: ["#3498DB", "#1ABC9C", "#F39C12"],
-          },
-        ],
-      },
-    },
-    {
-      title: "Weekly Progress",
-      type: "bar",
-      data: {
-        labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-        datasets: [
-          {
-            label: "Planned",
-            data: [8, 8, 8, 8, 8],
-            backgroundColor: "#2C3E50",
-            borderRadius: 5,
-          },
-          {
-            label: "Actual",
-            data: [6, 7, 5, 9, 6],
-            backgroundColor: "#ECF0F1",
-            borderRadius: 5,
-          },
-        ],
-      },
-    },
-  ];
+  const pieData = {
+    labels: ["Todo", "In Progress", "Completed"],
+    datasets: [{ data: [30, 15, 55], backgroundColor: ["#36A2EB", "#4CAF50", "#FF9800"] }],
+  };
+
+  const weeklyProgressData = {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+    datasets: [
+      { label: "Planned", data: [8, 8, 8, 8, 8], backgroundColor: "rgb(54, 162, 235)" },
+      { label: "Actual", data: [6, 7, 5, 9, 6], backgroundColor: "rgb(200, 200, 200)" },
+    ],
+  };
 
   return (
     <>
       <Navbar />
-      <div className="reports-container">
-        <h1>Reports</h1>
+    <div className="reports-container">
+      <h2 className="reports-title">Reports</h2>
 
-        {/* Use Grid Layout for consistent 3-per-row alignment */}
-        <div className="chart-row">
-          {charts.map((chart, index) => (
-            <div className="chart-card" key={index}>
-              <h2>{chart.title}</h2>
-              <div className="chart-wrapper">
-                {chart.type === "bar" && <Bar data={chart.data} options={chartOptions} />}
-                {chart.type === "pie" && <Pie data={chart.data} options={chartOptions} />}
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Time per Developer */}
+      <div className="report-chart">
+        <h3>Time per Developer</h3>
+        <Bar data={barData} />
       </div>
+
+      {/* Task Status Distribution */}
+      <div className="report-chart">
+        <h3>Task Status Distribution</h3>
+        <Pie data={pieData} />
+      </div>
+
+      {/* Weekly Progress */}
+      <div className="report-chart">
+        <h3>Weekly Progress</h3>
+        <Bar data={weeklyProgressData} />
+      </div>
+    </div>
     </>
   );
 };
 
 export default Reports;
-  
