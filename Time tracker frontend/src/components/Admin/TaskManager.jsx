@@ -13,21 +13,33 @@ const TaskManager = () => {
     moduleId: "",
     userId: "",
   });
+
   const [projects, setProjects] = useState([]);
   const [modules, setModules] = useState([]);
   const [users, setUsers] = useState([]);
-  const [timers, setTimers] = useState({}); // To track each task's timer
+  const [timers, setTimers] = useState({}); // Track timers for each task
 
-  // Fetch projects, modules, and users from the API
+  // Fetch data from API on component mount
   useEffect(() => {
     fetchProjects();
     fetchUsers();
+    fetchTasks();
   }, []);
+
+  // Fetch existing tasks
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/tasks");
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
 
   // Fetch available projects
   const fetchProjects = async () => {
     try {
-      const response = await axios.get("/api/projects");
+      const response = await axios.get("http://localhost:8000/projects");
       setProjects(response.data);
     } catch (error) {
       console.error("Error fetching projects:", error);
@@ -37,7 +49,7 @@ const TaskManager = () => {
   // Fetch available developers (users)
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("/api/users");
+      const response = await axios.get("http://localhost:8000/users");
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -47,7 +59,7 @@ const TaskManager = () => {
   // Fetch modules when a project is selected
   const fetchModules = async (projectId) => {
     try {
-      const response = await axios.get(`/api/modules?projectId=${projectId}`);
+      const response = await axios.get(`http://localhost:8000/modules?projectId=${projectId}`);
       setModules(response.data);
     } catch (error) {
       console.error("Error fetching modules:", error);
@@ -59,7 +71,7 @@ const TaskManager = () => {
     const { name, value } = e.target;
     setTaskInput({ ...taskInput, [name]: value });
 
-    // If project changes, update modules
+    // If project changes, update modules dynamically
     if (name === "projectId") {
       fetchModules(value);
     }
@@ -73,7 +85,7 @@ const TaskManager = () => {
     }
 
     try {
-      const response = await axios.post("/api/tasks", taskInput);
+      const response = await axios.post("http://localhost:8000/tasks", taskInput);
       setTasks([...tasks, response.data]); // Update UI with new task
       setTaskInput({
         title: "",
@@ -92,22 +104,26 @@ const TaskManager = () => {
 
   // Start timer for a specific task
   const startTimer = (taskId) => {
-    setTimers((prevTimers) => ({
-      ...prevTimers,
-      [taskId]: setInterval(() => {
-        console.log(`Timer running for task ${taskId}`);
-      }, 1000),
-    }));
+    if (!timers[taskId]) {
+      setTimers((prevTimers) => ({
+        ...prevTimers,
+        [taskId]: setInterval(() => {
+          console.log(`Timer running for task ${taskId}`);
+        }, 1000),
+      }));
+    }
   };
 
   // Stop timer for a specific task
   const stopTimer = (taskId) => {
-    clearInterval(timers[taskId]);
-    setTimers((prevTimers) => {
-      const newTimers = { ...prevTimers };
-      delete newTimers[taskId];
-      return newTimers;
-    });
+    if (timers[taskId]) {
+      clearInterval(timers[taskId]);
+      setTimers((prevTimers) => {
+        const newTimers = { ...prevTimers };
+        delete newTimers[taskId];
+        return newTimers;
+      });
+    }
   };
 
   return (
