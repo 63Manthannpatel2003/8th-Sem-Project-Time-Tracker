@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
-import "../../css/addProject.css";
+import "../../css/addproject.css"; 
 import "../../css/navbar.css";
 import Navbar from "../common/Navbar"; // Adjust the path if needed
+
 
 export const AddProject = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -21,8 +22,8 @@ export const AddProject = () => {
             const res = await axios.post("/addProject", data);
             setMessage(res.data.Message);
 
-            // Display success toast
-            toast.success("🎉 Project added successfully!", {
+              // Display success toast
+              toast.success("🎉 Project added successfully!", {
                 position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -32,12 +33,9 @@ export const AddProject = () => {
                 theme: "light",
                 transition: Slide,
             });
-
         } catch (error) {
             console.error("Error adding project", error);
             setMessage("Failed to add project");
-
-            // Display error toast
             toast.error("❌ Failed to add project!", {
                 position: "top-center",
                 autoClose: 3000,
@@ -55,6 +53,7 @@ export const AddProject = () => {
       <div>
           <Navbar /> {/* Add Navbar here */}
           <ToastContainer /> {/* Toast notification container */}
+          
           <div className="add-project-form">
               <h1>ADD PROJECT</h1>
               {/* {message && <p className="message">{message}</p>} */}
@@ -97,7 +96,7 @@ export const AddProject = () => {
                   <div className="form-group">
                       <label>Start Date</label>
                       <input
-                          type='datetime-local'
+                           type='datetime-local'
                           {...register("startDate", { required: "Start date is required" })}
                       />
                       {errors.startDate && <p className="error-message">{errors.startDate.message}</p>}
@@ -117,4 +116,5 @@ export const AddProject = () => {
           </div>
       </div>
   );
+  
 };

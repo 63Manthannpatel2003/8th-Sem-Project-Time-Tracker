@@ -16,17 +16,38 @@ const TaskManager = () => {
 
   const [projects, setProjects] = useState([]);
   const [modules, setModules] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [assignedDeveloper, setAssignedDeveloper] = useState("");
+  const [developer, setDeveloper] = useState([]);
   const [timers, setTimers] = useState({}); // Track timers for each task
 
   // Fetch data from API on component mount
   useEffect(() => {
     fetchProjects();
     fetchUsers();
+    fetchDevelopers();
     fetchTasks();
   }, []);
 
-  // Fetch existing tasks
+  const fetchDevelopers=async()=> {
+    try{
+      const response = await axios.get("http://localhost:8000/getAllUser");
+      const developer = response.data.filter((user) => user.role === "Developer");
+      setDeveloper(developer);
+
+    }
+    catch (error) {
+      console.error("Error fetching developers:", error);
+    }
+
+  }
+  const handleDevelopersSelect = (event)=>{
+    const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
+    setDeveloper(selectedOptions);
+    
+
+
+  }
+    // Fetch existing tasks
   const fetchTasks = async () => {
     try {
       const response = await axios.get("http://localhost:8000/tasks");
@@ -160,39 +181,18 @@ const TaskManager = () => {
       />
 
       {/* Dropdown Menus */}
-      {/* <select name="statusId" value={taskInput.statusId} onChange={handleChange}>
-        <option value="">Select Status</option>
-        <option value="todo">To-Do</option>
-        <option value="work_in_progress">Work in Progress</option>
-        <option value="completed">Work Completed</option>
-      </select> */}
-
-      <select name="projectId" value={taskInput.projectId} onChange={handleChange}>
-        <option value="">Select Project</option>
-        {projects.map((project) => (
-          <option key={project._id} value={project._id}>
-            {project.name}
-          </option>
-        ))}
-      </select>
-
-      <select name="moduleId" value={taskInput.moduleId} onChange={handleChange}>
-        <option value="">Select Module</option>
-        {modules.map((module) => (
-          <option key={module._id} value={module._id}>
-            {module.name}
-          </option>
-        ))}
-      </select>
-
-      <select name="userId" value={taskInput.userId} onChange={handleChange}>
+     
+    {/* drop down menu for selecting developer */}
+    
+      <select value={assignedDeveloper} onChange={(e) => setAssignedDeveloper(e.target.value)}>
         <option value="">Select Developer</option>
-        {users.map((user) => (
-          <option key={user._id} value={user._id}>
-            {user.name}
+        {developer.map((dev) => (
+          <option key={dev._id} value={dev._id}>
+            {dev.username}
           </option>
         ))}
       </select>
+
 
       {/* Add Task Button */}
       <button onClick={handleAddTask}>Add Task</button>

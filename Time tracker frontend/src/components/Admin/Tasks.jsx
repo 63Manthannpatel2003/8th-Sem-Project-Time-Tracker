@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../common/Navbar";
 import "../../css/tasks.css";
-import TaskManager from "./TaskManager";
+import TaskManager from "./TaskManager"; 
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState("");
 
+  // Fetch tasks
   useEffect(() => {
     fetch("http://localhost:8000/getTask") // API endpoint
       .then((response) => response.json())
@@ -13,11 +16,37 @@ const Tasks = () => {
       .catch((error) => console.error("Error fetching tasks:", error));
   }, []);
 
+  // Fetch projects
+  useEffect(() => {
+    fetch("http://localhost:8000/getAllProjects")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Full API Response:", data); // Debugging
+        setProjects(data); // Directly setting data since it's an array
+      })
+      .catch((error) => console.error("Error fetching projects:", error));
+  }, []);
+  
+
   return (
     <div>
       <Navbar />
       <div className="tasks-container">
         <h1>Tasks</h1>
+
+        {/* Project Dropdown */}
+        <label>Select Project:</label>
+        <select
+          value={selectedProject}
+          onChange={(e) => setSelectedProject(e.target.value)}
+        >
+          {projects.map((project) => (
+    <option key={project.id} value={project.id}>
+      {project.title}  {/* Change 'name' to 'title' */}
+    </option>
+  ))}
+        </select>
+
         <TaskManager />
         <div className="tasks-list">
           {tasks.map((task) => (
