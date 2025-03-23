@@ -22,7 +22,7 @@ const Module = () => {
             });
     }, []);
 
-    
+
     // Fetch projects
     useEffect(() => {
         fetch("http://localhost:8000/getAllProjects")
@@ -38,23 +38,47 @@ const Module = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        console.log("🔹 Button Clicked: handleSubmit executed");
+        console.log("Selected Project ID:", selectedProject);
+        console.log("Start Date Before Formatting:", startDate);
+
+        const formattedDate = startDate.split("/").reverse().join("-"); // Convert "23/3/2025" -> "2025-03-23"
+        const isoDate = new Date(formattedDate).toISOString(); // Convert to ISO format
+    
+        console.log("✅ Formatted Date (ISO):", isoDate);
+    
         const moduleData = {
-            projectId: selectedProject,  // Save project ID
-            moduleName,
-            description,
-            estimatedHours: parseInt(estimatedHours),  // Ensure number format
-            status,
-            startDate,
+            projectId: selectedProject.trim(), // Ensure it's a string
+            moduleName: moduleName.trim(),
+            description: description.trim(),
+            estimatedHours: parseInt(estimatedHours, 10), // Ensure it's an integer
+            status: status.trim(),
+            startDate: isoDate, // Convert to ISO format
         };
 
+        console.log("Sending Data:", moduleData); // Check final data before sending
+
         try {
-            const response = await axios.post("http://localhost:8000/addProjectModule", moduleData);
+            const response = await axios.post("http://localhost:8000/addProjectModule", moduleData, {
+                headers: { "Content-Type": "application/json" },
+            });
+    
+            console.log("✅ Module Added Successfully:", response.data);
             alert("Module Added Successfully!");
+    
+            // Reset form fields
+            setSelectedProject("");
+            setModuleName("");
+            setDescription("");
+            setEstimatedHours("");
+            setStatus("");
+            setStartDate("");
         } catch (error) {
-            console.error("Error adding module:", error);
+            console.error("❌ Error adding module:", error.response?.data || error);
             alert("Failed to add module!");
         }
     };
+    
 
     return (
         <div className="container">
