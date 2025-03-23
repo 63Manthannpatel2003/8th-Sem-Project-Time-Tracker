@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-datetime": "^3.3.1",
     "react-toastify": "^11.0.5"
   }
 }

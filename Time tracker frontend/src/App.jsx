@@ -15,6 +15,7 @@ import { AddProject } from "./components/Admin/AddProject";
 import ProjectPage from "./components/Admin/Project";
 import Tasks from "./components/Admin/Tasks";
 import Reports from "./components/Admin/Reports";
+import Module from "./components/Admin/Module";
 
 import DeveloperDashboard from "./components/Developer/DeveloperDashboard";
 import DeveloperTasks from "./components/Developer/Tasks";
@@ -53,6 +54,7 @@ function App() {
           <Route path="/admin/projects" element={<ProjectPage />} />
           <Route path="/admin/tasks" element={<Tasks />} />
           <Route path="/admin/reports" element={<Reports />} />
+          <Route path="/admin/modules" element={<Module />} />
         </Route>
 
         {/* Developer Routes */}
