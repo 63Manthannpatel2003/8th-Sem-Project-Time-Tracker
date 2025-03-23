@@ -22,6 +22,7 @@ const Module = () => {
             });
     }, []);
 
+    
     // Fetch projects
     useEffect(() => {
         fetch("http://localhost:8000/getAllProjects")
