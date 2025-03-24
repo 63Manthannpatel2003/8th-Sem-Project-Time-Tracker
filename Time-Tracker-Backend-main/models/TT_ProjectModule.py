@@ -16,7 +16,7 @@ class ProjectModule(BaseModel):
     moduleName:str
     description:str
     estimatedHours:int
-    status:Optional[str] = "pending"  # ✅ Default to "pending"
+    # status:Optional[str] = "pending"  # ✅ Default to "pending"
     startDate:datetime
 
 class ProjectModuleOut(ProjectModule):

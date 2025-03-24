@@ -3,7 +3,7 @@ import "../../css/module.css";
 import Navbar from "../common/Navbar";
 import { useNavigate } from "react-router-dom";
 // import datetime from "react-datetime";
-import datetime from "react-datetime";
+// import date from "react-datetime";
 
 const AddModule = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const AddModule = () => {
     moduleName: "",
     description: "",
     estimatedHours: "",
-    startDate: datetime,
+    startDate: "",
   });
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const AddModule = () => {
           <input type="number" name="estimatedHours" value={formData.estimatedHours} onChange={handleChange} required />
 
           <label>Start Date:</label>
-          <input type="datetime" name="startDate" value={formData.startDate} onChange={handleChange} required />
+          <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} required />
 
           <button type="submit">Add Module</button>
         </form>
