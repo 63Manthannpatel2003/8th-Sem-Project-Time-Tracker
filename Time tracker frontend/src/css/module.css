@@ -1,31 +1,126 @@
+/* 📌 Module Page Container */
 .module-page-container {
-    padding: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* 📌 Header Styling */
+.module-header h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.module-header p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* 📌 Action Buttons & Search */
+.module-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  padding: 10px;
+  width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.new-module-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 📌 Module List (Ensuring Proper Alignment) */
+.module-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Ensures left-aligned cards */
+  gap: 20px;
+}
+
+/* 🎨 Module Card Styling */
+.module-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 320px; /* Ensuring uniform width */
+  flex-grow: 1;
+  position: relative;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+/* 🖱️ Hover Effect */
+.module-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 🖲️ Click Effect */
+.module-card:active {
+  transform: scale(0.98);
+}
+
+/* 🔥 Fade-in Up Animation */
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
   }
-  
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.module-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.module-info {
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
+}
+
+.module-footer {
+  font-size: 12px;
+  color: #888;
+  margin-top: 15px;
+}
+
+/* 📌 Status Badge */
+.status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ddd;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+/* 📌 Responsive Fix */
+@media (max-width: 768px) {
+  .module-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .module-card {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 10px 0;
+    width: 100%;
   }
-  
-  .module-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .new-module-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .new-module-btn:hover {
-    background-color: #0056b3;
-  }
-  
+}

@@ -2,7 +2,7 @@ import React from "react";
 import { Bar, Pie } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, ArcElement, Tooltip, Legend } from "chart.js";
 import "../../css/Reports.css"; // Ensure CSS is updated
-import Navbar from "../common/Navbar";
+import Navbar from "./AdminNavbar";
 
 // Register chart components
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);

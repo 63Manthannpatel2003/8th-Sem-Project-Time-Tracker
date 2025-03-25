@@ -17,14 +17,14 @@ class Task(BaseModel):
     title:str
     priority:str
     description:str
-    statusId:str
+    # statusId:str
     totalMinutes:int
 
 class TaskOut(Task):
     id:str=Field(alias="_id")
     module_id: Optional[Dict[str,Any]] = None
     project_id: Optional[Dict[str,Any]] = None
-    status_id: Optional[Dict[str,Any]] = None
+    # status_id: Optional[Dict[str,Any]] = None
 
     @validator('id', pre=True, always=True)
     def convert_task_id(cls,v):
@@ -44,8 +44,8 @@ class TaskOut(Task):
             v["_id"] = str(v["_id"])
         return v    
     
-    @validator('status_id', pre=True, always=True)
-    def convert_status_id(cls,v):
-        if isinstance(v,Dict) and "_id" in v:
-            v["_id"] = str(v["_id"])
-        return v
+    # @validator('status_id', pre=True, always=True)
+    # def convert_status_id(cls,v):
+    #     if isinstance(v,Dict) and "_id" in v:
+    #         v["_id"] = str(v["_id"])
+    #     return v

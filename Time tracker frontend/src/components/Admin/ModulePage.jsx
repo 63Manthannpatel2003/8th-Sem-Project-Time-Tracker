@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from "react";
+import Navbar from "./AdminNavbar";
 import "../../css/module.css";
-import Navbar from "../common/Navbar";
 import { useNavigate } from "react-router-dom";
 
-const ModulePage = () => {
+const ModuleCard = ({ moduleName, description, project_id, estimatedHours, startDate }) => {
+    const projectName = project_id ? project_id.title : "Unknown Project";  // Fetch project name from project_id.title
+  
+    return (
+      <div className="module-card">
+      <div className="module-info">
+        <h3>Module Name: {moduleName}</h3>  {/* Show module name */}
+        <span>Description: {description} </span> <br />    
+          <span>Project: {projectName}</span> <br />
+          <span>Estimated Hours: {estimatedHours}</span> <br />
+          <span>Start Date: {new Date(startDate).toLocaleDateString()}</span>
+        </div>
+      </div>
+    );
+  };
+  
+
+const Module = () => {
   const navigate = useNavigate();
   const [modules, setModules] = useState([]);
-  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -15,7 +31,7 @@ const ModulePage = () => {
       try {
         const response = await fetch("http://localhost:8000/getProjectModule");
         if (!response.ok) {
-          throw new Error("Failed to fetch modules");
+          throw new Error("Failed to fetch modules",error);
         }
         const data = await response.json();
         setModules(data);
@@ -26,21 +42,7 @@ const ModulePage = () => {
       }
     };
 
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/getAllProjects");
-        if (!response.ok) {
-          throw new Error("Failed to fetch projects");
-        }
-        const data = await response.json();
-        setProjects(data);
-      } catch (err) {
-        console.error("Error fetching projects:", err);
-      }
-    };
-
     fetchModules();
-    fetchProjects();
   }, []);
 
   return (
@@ -60,17 +62,11 @@ const ModulePage = () => {
         {loading ? (
           <p>Loading modules...</p>
         ) : error ? (
-          <p className="error-message">Failed to fetch modules: {error}</p>
+          <p className="error-message">{error}</p>
         ) : modules.length > 0 ? (
           <div className="module-list">
             {modules.map((module) => (
-              <div key={module.id} className="module-card">
-                <h3>{module.name}</h3>
-                <p>{module.description}</p>
-                <span>Project: {module.projectName}</span>
-                <p>Estimated Hours: {module.estimatedHours}</p>
-                <p>Start Date: {new Date(module.startDate).toLocaleDateString()}</p>
-              </div>
+              <ModuleCard key={module.id} {...module} />
             ))}
           </div>
         ) : (
@@ -81,4 +77,4 @@ const ModulePage = () => {
   );
 };
 
-export default ModulePage;
+export default Module;

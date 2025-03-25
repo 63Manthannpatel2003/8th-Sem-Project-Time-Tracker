@@ -13,7 +13,9 @@ import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
 import { AdminDashboard } from "./components/Admin/AdminDashboard";
 import { AddProject } from "./components/Admin/AddProject";
 import ProjectPage from "./components/Admin/Project";
-import Tasks from "./components/Admin/Tasks";
+// import Tasks from "./components/Admin/Tasks";
+import AddTask from "./components/Admin/AddTask";
+import TaskPage from "./components/Admin/TaskPage";
 import Reports from "./components/Admin/Reports";
 import ModulePage from "./components/Admin/ModulePage";
 import AddModule from "./components/Admin/AddModule";
@@ -53,7 +55,8 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/addProject" element={<AddProject />} />
           <Route path="/admin/projects" element={<ProjectPage />} />
-          <Route path="/admin/tasks" element={<Tasks />} />
+          <Route path="/admin/taskpage" element={<TaskPage />} />
+          <Route path="/admin/addTask" element={<AddTask />} />
           <Route path="/admin/reports" element={<Reports />} />
           <Route path="/admin/modules" element={<ModulePage />} />
           <Route path="/admin/addModule" element={<AddModule />}/>
